@@ -26,13 +26,14 @@ contract Eloladder {
         return k*(outcome - expected);
     }
 
-    function addPlayer(address player, bytes32 name, uint initialScore) public {
+    function addPlayer(address player, bytes32 name, uint initialScore) public returns (bytes32) {
         require(
             msg.sender == director,
             "Only director can add a person."
         );
         players[player].score = initialScore;
         players[player].name = name;
+        return "player added";
     }
 
     function recordWin(address winner, address loser) public {
