@@ -28,25 +28,25 @@ contract Eloladder {
         return k*(outcome - expected);
     }
 
-    function addPlayer(address playerAddress, string name, uint initialScore) public returns (uint index) {
-        require(isPlayer(playerAddress),"player exists");
+    function addPlayer(address playerAddress, string name, uint initialScore) public {
+        //require(!isPlayer(playerAddress),"player exists");
         
         playerStructs[playerAddress].score = initialScore;
         playerStructs[playerAddress].name = name;
         playerStructs[playerAddress].index = playerIndex.push(playerAddress)-1;
-        return playerIndex.length-1;
+        //return playerIndex.length-1;
     }
 
     function isPlayer(address playerAddress)
         public 
         view
-        returns(bool isIndeed) 
+        returns(bool) 
     {
         if(playerIndex.length == 0) return false;
         return (playerIndex[playerStructs[playerAddress].index] == playerAddress);
     }
 
-    function getPlayer(address playerAddress) public view returns(uint score, string name, uint index) {
+    function getPlayer(address playerAddress) public view returns(uint, string, uint) {
         require(isPlayer(playerAddress),"player exists");
         return (
             playerStructs[playerAddress].score,
@@ -57,15 +57,15 @@ contract Eloladder {
     function getPlayerCount() 
         public
         view
-        returns(uint count)
+        returns(uint)
     {
         return playerIndex.length;
     }
 
-    function getUserAtIndex(uint index)
+    function getPlayerAtIndex(uint index)
         public
         view
-        returns(address playerAddress)
+        returns(address)
     {
         return playerIndex[index];
     }
